@@ -43,7 +43,7 @@ public class HaikuGUI extends JFrame
 
 	    // create the panel components
 
-	    pad.setEditable ( false ); // set textArea non-editable
+	    pad.setEditable ( false ); // set pad non-editable
 	    JScrollPane scroll = new JScrollPane ( pad );
         scroll.setBounds(10, 11, 455, 249);   
 	    scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );

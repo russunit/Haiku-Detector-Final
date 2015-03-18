@@ -96,6 +96,7 @@ public class wordListTest {
 		try
 		{
 			tWL.fileToString(tWL.getInString());
+			//test for no error
 		}
 		catch(IOException ioe)
 		{}

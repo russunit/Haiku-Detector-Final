@@ -64,16 +64,12 @@ public class wordList
 		//process file
 		
 		sentence = sentence.toLowerCase();
-		sentence = sentence.replaceAll("0", "");
-		sentence = sentence.replaceAll("1", "");
-		sentence = sentence.replaceAll("2", "");
-		sentence = sentence.replaceAll("3", "");
-		sentence = sentence.replaceAll("4", "");
-		sentence = sentence.replaceAll("5", "");
-		sentence = sentence.replaceAll("6", "");
-		sentence = sentence.replaceAll("7", "");
-		sentence = sentence.replaceAll("8", "");
-		sentence = sentence.replaceAll("9", "");
+		
+		for(int x = 0; x < 10; x++)
+		{
+			sentence = sentence.replaceAll(String.valueOf(x), "");
+		}
+		
 		sentence = sentence.replaceAll("\'", "");
 		sentence = sentence.replaceAll("\"", "");
 		sentence = sentence.replaceAll("\n", " ");
@@ -160,34 +156,31 @@ public class wordList
 	
 	
 	//character recognition
-	public boolean isaLetter(char c)
+	public static boolean isaLetter(char c)
 	{
 		if(Character.isLetter(c))
 			return true;
-		else
-			return false;
+		
+		return false;
+			
 	}
 
-	public boolean isaVowel(char c)
+	public static boolean isaVowel(char c)
 	{
 		if(isaLetter(c))
 			if(c=='a'||c=='e'||c=='i'||c=='o'||c=='u'||c=='y')
 				return true;
-			else
-				return false;
-		else
-			return false;
+		
+		return false;
 	}
 
-	public boolean isaConsonant(char c)
+	public static boolean isaConsonant(char c)
 	{
 		if(isaLetter(c))
 			if(!isaVowel(c))
 				return true;
-			else
-				return false;
-		else
-			return false;
+
+		return false;
 	}
 	
 
@@ -220,18 +213,6 @@ public class wordList
 	public String[] sepWords(String inStr, int numW)
 	{
 		
-		for(int x=0; x<inStr.length(); x++)//eliminate nonletters at beginning
-		{
-			if(!isaLetter(inStr.charAt(x)))
-			{
-				StringBuilder newStr = new StringBuilder(inStr);
-				newStr.deleteCharAt(x);
-				inStr = newStr.toString();
-			}
-			else
-				break;
-		}
-		
 		String[] splitStr = inStr.split("\\P{Alpha}+", numW);//delimiter=anything non-letter
 
 		
@@ -245,6 +226,32 @@ public class wordList
 		
 		int numSyls = 0;
 		inStr = inStr + " ";
+		
+		//Of the 500 most commonly used words, 6 were exceptions to the rules.
+		//They are corrected here...
+		//Also, i added period, therefore, therefor, and thereby.
+		
+		
+		if(inStr.contains("beauty")&&inStr.length()==7)
+			return 2; 
+		if(inStr.contains("idea")&&inStr.length()==5)
+			return 3;
+		if(inStr.contains("science")&&inStr.length()==8)
+			return 2;
+		if(inStr.contains("special")&&inStr.length()==8)
+			return 2;
+		if(inStr.contains("area")&&inStr.length()==5)
+			return 3;
+		if(inStr.contains("hundred")&&inStr.length()==8)
+			return 2;
+		if(inStr.contains("period")&&inStr.length()==6)
+			return 3;
+		if(inStr.contains("therefore")&&inStr.length()==10)
+			return 2;
+		if(inStr.contains("therefor")&&inStr.length()==9)
+			return 2;
+		if(inStr.contains("hereby")&&(inStr.length()==8||inStr.length()==7))
+			return 2;//hereby or thereby
 		
 		for(int x=1; x<inStr.length(); x++)
 		{
@@ -414,31 +421,6 @@ public class wordList
 			
 		}//big forloop ends
 		
-		//Of the 500 most commonly used words, 6 were exceptions to the rules.
-		//They are corrected here...
-		//Also, i added period, therefore, therefor, and thereby.
-
-		if(inStr.contains("beauty")&&inStr.length()==7)
-			return 2; 
-		if(inStr.contains("idea")&&inStr.length()==5)
-			return 3;
-		if(inStr.contains("science")&&inStr.length()==8)
-			return 2;
-		if(inStr.contains("special")&&inStr.length()==8)
-			return 2;
-		if(inStr.contains("area")&&inStr.length()==5)
-			return 3;
-		if(inStr.contains("hundred")&&inStr.length()==8)
-			return 2;
-		if(inStr.contains("period")&&inStr.length()==6)
-			return 3;
-		if(inStr.contains("therefore")&&inStr.length()==10)
-			return 2;
-		if(inStr.contains("therefor")&&inStr.length()==9)
-			return 2;
-		if(inStr.contains("hereby")&&(inStr.length()==8||inStr.length()==7))
-			return 2;//hereby or thereby
-		
 		
 		if(numSyls==0)//zero syllable word case, return one
 			return 1;
@@ -463,6 +445,8 @@ public class wordList
 		for(currWord = 0; currWord < numWords; currWord++)//this will go through all words
 		{
 			//System.out.println("loop1");
+			currLine = 0;
+			currSyls = 0;
 			
 			for(int x = currWord; x < numWords; x++ )//this will start at each word
 			{
@@ -493,8 +477,6 @@ public class wordList
 				
 				else if(currSyls > sylsNeeded[currLine])//not a haiku. next currWord.
 				{
-					currLine = 0;
-					currSyls = 0;
 					for(int c = 0; c < 3; c++)//load lines into haiku
 						hLine[c] = "";
 					
@@ -503,8 +485,6 @@ public class wordList
 				}
 				
 			}//end of words, no haiku
-			currLine = 0;
-			currSyls = 0;
 			for(int c = 0; c < 3; c++)//load lines into haiku
 				hLine[c] = "";
 			}
@@ -547,7 +527,7 @@ public class wordList
 		
 		//this segment for testing.
 		
-		/**/
+		/*
 		System.out.println("\nWORDS: ");
 		System.out.println(hWords.getNumWords());
 		
@@ -558,7 +538,7 @@ public class wordList
 			System.out.print(hWords.getWordSyls(x) + " ");
 			System.out.println(hWords.getWord(x) + " ");
 		}
-		/**/
+		*/
 		
 		System.out.println();
 		System.out.print(hWords.getHaikus());
