@@ -501,12 +501,6 @@ public class wordList
 		BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
 
 		String str = "";
-		//String fName ="";
-		//int sWords;
-		//String divSentence[];
-
-		
-		//input string
 
 		try 
 		{
@@ -521,24 +515,6 @@ public class wordList
 		System.out.println("Processing...");
 		
 		wordList hWords = new wordList(str, true);//filename
-
-		
-		//output string
-		
-		//this segment for testing.
-		
-		/*
-		System.out.println("\nWORDS: ");
-		System.out.println(hWords.getNumWords());
-		
-		
-		System.out.println("\nSEPARATED WORDS: ");
-		for(int x=0; x<hWords.getNumWords(); x++)
-		{
-			System.out.print(hWords.getWordSyls(x) + " ");
-			System.out.println(hWords.getWord(x) + " ");
-		}
-		*/
 		
 		System.out.println();
 		System.out.print(hWords.getHaikus());
@@ -546,15 +522,6 @@ public class wordList
 		System.out.print("HAIKUS: ");
 
 		System.out.print(hWords.getNumHaikus());
-		
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-                              
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
 
 
 	}
